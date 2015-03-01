@@ -1,6 +1,7 @@
 var glob = require('glob');
 var manyFileHashes = require('many-file-hashes');
 var async = require('async');
+var fs = require('fs');
 
 // TODO: from command line.
 var basePath = './sample-data/base';
@@ -45,14 +46,23 @@ async.series({
 					console.log('hashErr: ' + hashErr);
 					return cb();
 				}
+				var taskList = [];
 				hashes.forEach(function(thisHashResult) {
 					if (baseHashes[thisHashResult.hash]) {
-						console.log('compare file is dupe: ' + thisHashResult.original);
+						taskList.push(function(innerCb) {
+							fs.rename(thisHashResult.original, thisHashResult.original + '.dup', function() {
+								innerCb();
+							});
+						});
 					} else {
-						console.log('compare file is NOT dupe: ' + thisHashResult.original);
+						taskList.push(function(innerCb) {
+							innerCb();
+						});
 					}
 				});
-				cb();
+				async.series(taskList, function() {
+					cb();
+				});
 			});
 		});
 	}
