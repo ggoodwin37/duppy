@@ -1,0 +1,19 @@
+{
+  "name": "duppy",
+  "version": "1.0.0",
+  "description": "Hash-based file de-duper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ggoodwin37/duppy.git"
+  },
+  "author": "gideong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ggoodwin37/duppy/issues"
+  },
+  "homepage": "https://github.com/ggoodwin37/duppy"
+}
